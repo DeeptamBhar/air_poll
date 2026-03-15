@@ -92,6 +92,7 @@ const Sidebar = ({ location }) => {
                 // AI ML Model Inference Fetch
                 let mlPred = '--';
                 let mlActive = false;
+                let mlClassification = '--';
                 try {
                     const mlUrl = `http://127.0.0.1:8000/predict_pm?lat=${location.lat}&lon=${location.lng}`;
                     const resMl = await fetch(mlUrl, { timeout: 3000 });
@@ -99,6 +100,7 @@ const Sidebar = ({ location }) => {
                         const mlData = await resMl.json();
                         mlPred = mlData.final_pm25;
                         mlActive = mlData.model_active;
+                        mlClassification = mlData.classification || '--';
                     }
                 } catch (err) {
                     console.warn('ML Backend offline or unreachable.');
@@ -113,7 +115,8 @@ const Sidebar = ({ location }) => {
                     aod: currentAq.aerosol_optical_depth !== undefined ? currentAq.aerosol_optical_depth.toFixed(2) : '--',
                     activeFires: fireCount,
                     mlPrediction: mlPred,
-                    mlActive: mlActive
+                    mlActive: mlActive,
+                    mlClassification: mlClassification
                 });
             } catch (err) {
                 console.warn('Failed to fetch live meteo data:', err);
@@ -247,8 +250,17 @@ const Sidebar = ({ location }) => {
                                     <span className="bg-slate-800 text-slate-400 border border-slate-700 text-[9px] px-1.5 py-0.5 rounded font-mono">BASELINE</span>
                                 )}
                             </div>
-                            <p className="text-xl font-bold text-white mt-1">
-                                {metrics.mlPrediction} <span className="text-xs text-slate-400 font-normal">PM2.5</span>
+                            <p className="text-xl font-bold text-white mt-1 flex items-baseline gap-2">
+                                <span>{metrics.mlPrediction}</span> <span className="text-xs text-slate-400 font-normal">PM2.5</span>
+                                {metrics.mlClassification && metrics.mlClassification !== '--' && (
+                                    <span className={`text-[10px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider ${metrics.mlClassification === 'Good' ? 'text-emerald-400 bg-emerald-500/10 border border-emerald-500/20' :
+                                            metrics.mlClassification === 'Moderate' ? 'text-amber-400 bg-amber-500/10 border border-amber-500/20' :
+                                                metrics.mlClassification === 'Sensitive' ? 'text-orange-400 bg-orange-500/10 border border-orange-500/20' :
+                                                    'text-red-400 bg-red-500/10 border border-red-500/20'
+                                        }`}>
+                                        {metrics.mlClassification}
+                                    </span>
+                                )}
                             </p>
                         </div>
                     </div>

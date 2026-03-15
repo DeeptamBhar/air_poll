@@ -196,6 +196,16 @@ def haversine(lat1, lon1, lat2, lon2):
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
     return R * c
 
+def classify_pm25(value):
+    if value <= 12.0:
+        return 'Good'
+    elif value <= 35.4:
+        return 'Moderate'
+    elif value <= 55.4:
+        return 'Sensitive'
+    else:
+        return 'Critical'
+
 @app.get("/predict_pm")
 async def predict_pm(lat: float, lon: float, time: str = None):
     """
@@ -257,7 +267,8 @@ async def predict_pm(lat: float, lon: float, time: str = None):
             "coarse_baseline": pm25_coarse_baseline,
             "predicted_residual": round(predicted_residual, 4),
             "final_pm25": round(final_pm25, 2),
-            "model_active": MODEL_LOADED
+            "model_active": MODEL_LOADED,
+            "classification": classify_pm25(final_pm25)
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
