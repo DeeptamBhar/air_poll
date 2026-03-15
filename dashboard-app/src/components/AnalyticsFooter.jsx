@@ -103,7 +103,7 @@ const AnalyticsFooter = ({ location }) => {
                         </div>
                         <div className="flex items-center gap-1.5 bg-red-500/10 px-2 py-1 rounded border border-red-500/20">
                             <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-                            <span className="text-[10px] uppercase font-semibold text-red-400 tracking-wider">Risk (200)</span>
+                            <span className="text-[10px] uppercase font-semibold text-red-400 tracking-wider">Risk (50)</span>
                         </div>
                     </div>
                 </div>
@@ -132,7 +132,7 @@ const AnalyticsFooter = ({ location }) => {
                             />
                             <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dx={-10} />
                             <Tooltip content={<ForecastTooltip />} cursor={{ stroke: '#334155', strokeWidth: 1, strokeDasharray: '5 5' }} />
-                            <ReferenceLine y={200} stroke="#ef4444" strokeDasharray="4 4" strokeWidth={1.5} />
+                            <ReferenceLine y={50} stroke="#ef4444" strokeDasharray="4 4" strokeWidth={1.5} />
 
                             {/* 🟣 Predicted — dashed indigo with filled gradient below */}
                             <Area
