@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap, LayersControl } from 'react-leaflet';
 import L from 'leaflet';
 import { BrainCircuit, Focus } from 'lucide-react';
+import HeatmapOverlay from './HeatmapOverlay';
 
 // Custom Map Marker using HTML to match our dark theme aesthetic
 const createCustomIcon = () => {
@@ -88,25 +89,10 @@ const MapView = ({ location, setLocation, time }) => {
                             opacity={0.9}
                         />
                     </LayersControl.Overlay>
-
-                    {/* Overlay: WAQI Live AQI Heatmap */}
-                    <LayersControl.Overlay checked name="🌍 Live AQI Heatmap (WAQI)">
-                        <TileLayer
-                            attribution='Air Quality Tiles &copy; <a href="https://waqi.info">WAQI</a>'
-                            url={`https://tiles.waqi.info/tiles/usepa-aqi/{z}/{x}/{y}.png?token=${import.meta.env.VITE_WAQI_TOKEN}`}
-                            opacity={0.65}
-                        />
-                    </LayersControl.Overlay>
-
-                    {/* Overlay: WAQI Station Dots */}
-                    <LayersControl.Overlay checked name="📍 AQI Monitoring Stations">
-                        <TileLayer
-                            attribution='Air Quality Tiles &copy; <a href="https://waqi.info">WAQI</a>'
-                            url={`https://tiles.waqi.info/tiles/station/{z}/{x}/{y}.png?token=${import.meta.env.VITE_WAQI_TOKEN}`}
-                            opacity={0.9}
-                        />
-                    </LayersControl.Overlay>
                 </LayersControl>
+
+                {/* Gradient AQI Heatmap — fetches live WAQI bounds data */}
+                <HeatmapOverlay />
 
                 {/* Selected Location Marker */}
                 <Marker position={[location.lat, location.lng]} icon={customIcon}>
@@ -119,7 +105,7 @@ const MapView = ({ location, setLocation, time }) => {
                 </Marker>
             </MapContainer>
 
-            {/* Floating Gemini Analysis Card */}
+            {/* Floating Gemini Analysis Card 
             <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -140,6 +126,7 @@ const MapView = ({ location, setLocation, time }) => {
                     <button className="text-[10px] font-bold text-indigo-400 hover:text-indigo-300 transition-colors">VIEW DETAILS &rarr;</button>
                 </div>
             </motion.div>
+            */}
 
             {/* Health Risk Zones Legend */}
             <div className="absolute bottom-6 right-6 glass-panel rounded-xl p-4 z-[500] flex flex-col gap-3 pointer-events-none">

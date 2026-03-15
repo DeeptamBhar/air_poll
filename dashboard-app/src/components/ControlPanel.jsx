@@ -30,7 +30,7 @@ const ControlPanel = ({ location, setLocation, time, setTime }) => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="absolute top-6 left-[45%] -translate-x-1/2 z-[500] flex gap-4 pointer-events-auto"
+            className="absolute top-6 right-[80px] z-[500] flex gap-4 pointer-events-auto"
         >
             <div className="glass-panel rounded-xl p-3 flex items-center gap-4 bg-slate-900/80 backdrop-blur-xl border-slate-700/80 shadow-2xl">
 
@@ -43,7 +43,7 @@ const ControlPanel = ({ location, setLocation, time, setTime }) => {
                             type="text"
                             value={latInput}
                             onChange={(e) => setLatInput(e.target.value)}
-                            className="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-xs text-slate-200 font-mono w-24 focus:outline-none focus:border-indigo-500 transition-colors"
+                            className="bg-slate-950/80 border border-slate-700/80 rounded px-2 py-1.5 text-xs text-white font-bold font-mono w-24 focus:outline-none focus:border-indigo-500 transition-colors shadow-inner"
                         />
                     </div>
                     <div className="flex flex-col">
@@ -52,7 +52,7 @@ const ControlPanel = ({ location, setLocation, time, setTime }) => {
                             type="text"
                             value={lngInput}
                             onChange={(e) => setLngInput(e.target.value)}
-                            className="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-xs text-slate-200 font-mono w-24 focus:outline-none focus:border-indigo-500 transition-colors"
+                            className="bg-slate-950/80 border border-slate-700/80 rounded px-2 py-1.5 text-xs text-white font-bold font-mono w-24 focus:outline-none focus:border-indigo-500 transition-colors shadow-inner"
                         />
                     </div>
                 </div>
@@ -63,10 +63,10 @@ const ControlPanel = ({ location, setLocation, time, setTime }) => {
                     <div className="flex flex-col">
                         <span className="text-[9px] uppercase tracking-widest text-slate-500 font-bold mb-0.5">Target Time</span>
                         <input
-                            type="datetime-local"
+                            type="date"
                             value={time}
                             onChange={handleTimeChange}
-                            className="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-xs text-slate-200 w-[160px] focus:outline-none focus:border-emerald-500 transition-colors custom-datetime"
+                            className="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-xs text-slate-200 w-[140px] focus:outline-none focus:border-emerald-500 transition-colors custom-datetime"
                         />
                     </div>
                 </div>

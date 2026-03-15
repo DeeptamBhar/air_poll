@@ -1,0 +1,20 @@
+# Common ignores
+node_modules/
+dist/
+build/
+.DS_Store
+*.local
+.env
+.env.*
+*.pyc
+__pycache__/
+
+# Large datasets or models (optional, but good practice if they grow)
+# *.csv
+# *.cbm
+
+# App specific
+dashboard-app/node_modules/
+dashboard-app/dist/
+dashboard-app/src/components/Chatbot/frontend/node_modules/
+dashboard-app/src/components/Chatbot/frontend/.next/
